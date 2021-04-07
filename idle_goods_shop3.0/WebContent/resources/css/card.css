@@ -1,0 +1,53 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	overflow-x:hidden;
+	-overflow-y:hidden;
+}
+.mycard{
+	width: 1000px;
+	margin: 30px auto;
+	-text-align: center;
+}
+.mycard table{
+	margin-top:10px;
+}
+.mycard table th,.mycard table td{
+	text-align: center;
+}
+.mycard img{
+	width: 100px;
+}
+.mycard .buy{
+	height: 50px;
+	line-height: 50px;
+	background: gainsboro;
+	text-align: right;
+}
+.mycard .final ul{
+	overflow: hidden;
+}
+.mycard .final ul li{
+	list-style: none;
+	float: left;
+	padding: 10px;
+}
+.mycard .buy span{
+	padding: 10px;
+}
+.mycard .buy button{
+	
+	width: 120px;
+	-height: 40px;
+	border: none;
+	outline: none;
+	background: #d81e06;
+	color: white;
+	font-size: 18px;
+}
+
+
+
+

@@ -1,0 +1,95 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+#content {
+	width: 1200px;
+	-height: 800px;
+	margin: 100px auto;
+	-border: 1px solid black;
+	padding: 10px;
+	overflow: hidden;
+	position: raletive;
+}
+
+#content .content1>div {
+	-border: 1px solid black;
+	text-align: center;
+}
+
+#content .content1 .img {
+	width: 300px;
+	display: inline-block;
+	position: absolute;
+	top: 190px;
+	left: 360px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+#content .content1 img {
+	width: 300px;
+	height: 300px;
+}
+
+.box {
+	display: inline-block;
+	width: 900px;
+	float: right;
+	padding: 30px;
+	box-shadow: #888888 0px 0px 10px;
+	background:rgba(255,255,255,0.9);
+}
+
+#content .content1 .detail {
+	margin: 0 auto;
+	-border: 1px solid black;
+	width: 400px;
+}
+
+#content .content1 .detail>div {
+	font-size: 18px;
+	-background: peachpuff;
+	line-height: 20px;
+	position: relative;
+	-border: 1px solid black;
+	padding: 10px;
+	overflow: hidden;
+}
+
+#content .content1 .detail h5 {
+	float: left;
+	font-size: 18px;
+	font-weight: bold;
+	background: pink;
+	line-height: 20px;
+	-border: 1px solid black;
+	margin: 0;
+}
+
+#content .content1 .detail .name {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+#content .content1 .detail .price {
+	font-size: 24px;
+	color: red;
+	font-weight: bold;
+}
+
+#content .content1 .detail a {
+	text-decoration: none;
+	color: black;
+}
+
+#content .content1 .detail button {
+	width: 120px;
+	height: 38px;
+	border: none;
+	outline: none;
+	background: #d81e06;
+	color: white;
+}

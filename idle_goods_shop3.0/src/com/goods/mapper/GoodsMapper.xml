@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper  namespace="com.goods.mapper.GoodsMapper">
+	<resultMap type="com.goods.entity.Goods" id="goodsResult">
+		<result column="g_id" property="g_id"/>
+		<result column="g_name" property="g_name"/>
+		<result column="g_detail" property="g_detail"/>
+		<result column="g_price" property="g_price"/>
+		<result column="url" property="url"/>
+		<result column="flag" property="flag"/>
+		
+		<association property="seller" javaType="com.goods.entity.User">
+			<result column="u_id" property="u_id"/>
+			<result column="u_name" property="u_name"/>
+			<result column="u_pwd" property="u_pwd"/>
+			<result column="u_sid" property="u_sid"/>
+			<result column="u_class" property="u_class"/>
+			<result column="u_margin" property="u_margin"/>
+			<result column="u_flag" property="u_flag"/>
+		</association>
+		
+		<association property="buyer" javaType="com.goods.entity.User">
+			<result column="u_id" property="u_id"/>
+			<result column="u_name" property="u_name"/>
+			<result column="u_pwd" property="u_pwd"/>
+			<result column="u_sid" property="u_sid"/>
+			<result column="u_class" property="u_class"/>
+			<result column="u_margin" property="u_margin"/>
+			<result column="u_flag" property="u_flag"/>
+		</association>
+		
+		<association property="type" javaType="com.goods.entity.Type">
+			<result column="t_id" property="t_id"/>
+			<result column="t_name" property="t_name"/>
+		</association>
+		
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	<select id="findAllType" resultType="com.goods.entity.Type">
+	select * from type
+	</select>
+	<select id="findAllNotices" resultType="com.goods.entity.Notice">
+	select * from notice
+	</select>
+	<select id="findAllGoods" resultType="com.goods.entity.Goods">
+	<![CDATA[
+	select * from
+	(select g.*,rownum r from goods g where  flag=1) p
+	where  r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+	]]>
+	</select>
+	<select id="count" resultType="int">
+	select count(1) from goods where flag=1
+	</select>
+	
+	<select id="findByGId" resultMap="goodsResult">
+	select * from goods,user2 where goods.se_id=user2.u_id  and  g_id=#{g_id}
+	</select>
+	
+	<select id="checkGoods" resultMap="goodsResult">
+	select * from 
+	(select * from goods,user2 where goods.se_id=user2.u_id and g_id=#{g_id}) g
+	where
+	   g.se_id=#{u_id}  or g.flag=2
+	</select>
+	
+	<update id="inCard">
+	update goods set bu_id=#{u_id},flag=2 where g_id=#{g_id}
+	
+	</update>
+	
+	<select id="card" resultMap="goodsResult">
+	select * from goods,user2 where  goods.se_id=user2.u_id  and  goods.bu_id=#{u_id} and goods.flag=2
+	</select>
+	<select id="cardNum" resultType="int">
+	select count(1) from goods where bu_id=#{u_id} and flag=2
+	
+	</select>
+	
+	<update id="cardDelete">
+	update goods set bu_id=null ,flag=1 where g_id=#{g_id}
+	</update>
+	<update id="pay">
+	update goods set flag=3 where g_id=#{g_id}
+	</update>
+	
+	<!--模糊查询，找商品  -->
+	<select id="findGoods" resultType="com.goods.entity.Goods">
+	
+	select g.* from goods g where  flag=1 and g.g_name like '%'||#{g_name}||'%'
+	
+	</select>
+	<select id="findGoodsByType" resultType="com.goods.entity.Goods">
+	select * from goods where t_id=#{t_id}
+	
+	</select>
+	
+	
+	<!-- 查询发布订单 -->
+	<select id="findGoodsBySeller" resultMap="goodsResult">
+		<![CDATA[
+			select g1.* from
+			(select g.*,u.u_name,u.u_id,t.t_name,rownum r from goods g,user2 u,type t
+			where g.se_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id}) g1
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+		]]>
+	</select>
+	
+	<!-- 查询发布订单记录数 -->
+	<select id="countGoods" resultType="int">
+		select count(1) from goods g,user2 u,type t
+		where g.se_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id}
+	</select>
+	
+	<!-- 查询购买订单记录数 -->
+	<select id="countBuyGoods" resultType="int">
+		select count(1) from goods g,user2 u,type t
+		where g.bu_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id}
+	</select>
+	
+	<!-- 取消发布订单 -->
+	<delete id="delGoods" parameterType="int">
+		delete from goods where g_id=#{g_id}
+	</delete>
+	
+	<!-- 根据物品编号查询我的发布信息 -->
+	<select id="findGoodsById" resultMap="goodsResult">
+		select g.*,u.u_name,u.u_id,t.t_name,t.t_id from goods g,user2 u,type t
+			where g.se_id=u.u_id and g.t_id=t.t_id and g.g_id=#{g_id}
+	</select>
+	
+	<!-- 修改我发布物品的信息 -->
+	<update id="updateGoods" parameterType="com.goods.entity.Goods">
+		update goods set 
+		g_name=#{g_name},t_id=#{type.t_id},g_price=#{g_price},g_detail=#{g_detail},url=#{url}
+		where g_id=#{g_id}
+	</update>
+	
+	<!-- 添加我的发布 -->
+	<insert id="addGoods"  parameterType="com.goods.entity.Goods">
+		insert into goods
+		values(goods_id_seq1.nextval,#{g_name},#{type.t_id},#{g_price},#{g_detail},#{seller.u_id},'',#{flag},#{url})
+	</insert>
+
+	<!-- 模糊查询 按订单号，商品名称，类别名称 -->	
+	<sql id="findLike1">
+		select g1.* from
+			(select g.*,u.u_name,u.u_id,t.t_name,rownum r from goods g,user2 u,type t
+			where g.se_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id}
+	</sql>
+	<sql id="findLike2">
+		) g1
+			<![CDATA[
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+			]]>
+	</sql>
+	<select id="findGoodsLike" resultMap="goodsResult">
+		<include refid="findLike1"/>
+		<if test="find!=null and find!='' and find_id==1">
+			and g.g_id=#{find}
+		</if>
+		<if test="find!=null and find!='' and find_id==2">
+			and g.g_name like '%'||#{find}||'%'				
+		</if>
+		<if test="find!=null and find!='' and find_id==3">
+			and t.t_name like '%'||#{find}||'%'				
+		</if>
+		<include refid="findLike2"/>
+	</select>
+	
+	<!-- 模糊查询购买订单 按订单号，商品名称，类别名称 -->	
+	<sql id="findLike3">
+		select g1.* from
+			(select g.*,u.u_name,u.u_id,t.t_name,rownum r from goods g,user2 u,type t
+			where g.se_id=u.u_id and g.t_id=t.t_id and g.bu_id=#{u_id}
+	</sql>
+	<sql id="findLike4">
+		) g1
+			<![CDATA[
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+			]]>
+	</sql>
+	<select id="findGoodsLike2" resultMap="goodsResult">
+		<include refid="findLike3"/>
+		<if test="find!=null and find!='' and find_id==1">
+			and g.g_id=#{find}
+		</if>
+		<if test="find!=null and find!='' and find_id==2">
+			and g.g_name like '%'||#{find}||'%'				
+		</if>
+		<if test="find!=null and find!='' and find_id==3">
+			and t.t_name like '%'||#{find}||'%'				
+		</if>
+		<include refid="findLike4"/>
+	</select>
+	
+	<!-- 搜索发布订单记录数 -->
+	<select id="countByFind" resultType="int">
+		select count(1) from goods g,user2 u,type t
+		where g.se_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id}
+		<if test="find!=null and find!='' and find_id==1">
+			and g.g_id=#{find}
+		</if>
+		<if test="find!=null and find!='' and find_id==2">
+			and g.g_name like '%'||#{find}||'%'				
+		</if>
+		<if test="find!=null and find!='' and find_id==3">
+			and t.t_name like '%'||#{find}||'%'				
+		</if>
+	</select>
+	
+	<!-- 搜索购买订单记录数 -->
+	<select id="countByBuyFind" resultType="int">
+		select count(1) from goods g,user2 u,type t
+		where g.bu_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id}
+		<if test="find!=null and find!='' and find_id==1">
+			and g.g_id=#{find}
+		</if>
+		<if test="find!=null and find!='' and find_id==2">
+			and g.g_name like '%'||#{find}||'%'				
+		</if>
+		<if test="find!=null and find!='' and find_id==3">
+			and t.t_name like '%'||#{find}||'%'				
+		</if>
+	</select>
+	
+	<!-- bu_id查询购买到订单   and g.flag=3-->
+	<select id="findGoodsByBuyer" resultMap="goodsResult">
+		<![CDATA[
+			select g1.* from
+			(select g.*,u.u_name,u.u_id,t.t_name,rownum r from goods g,user2 u,type t
+			where g.se_id=u.u_id and g.t_id=t.t_id and g.bu_id=#{u_id} and g.flag=3) g1
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+		]]>
+	</select>
+	
+	<!-- se_id查询卖出订单   and g.flag=3-->
+	<select id="findGoodsBySelled" resultMap="goodsResult">
+		<![CDATA[
+			select g1.* from
+			(select g.*,u.u_name,u.u_id,t.t_name,rownum r from goods g,user2 u,type t
+			where g.se_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id} and g.flag=3) g1
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+		]]>
+	</select>
+	
+	<!-- 查询正在出售订单 -->
+	<select id="findGoodsBySeller2" resultMap="goodsResult">
+		<![CDATA[
+			select g1.* from
+			(select g.*,u.u_name,u.u_id,t.t_name,rownum r from goods g,user2 u,type t
+			where g.se_id=u.u_id and g.t_id=t.t_id and u.u_id=#{u_id} and g.flag=1) g1
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+		]]>
+	</select>
+	
+	
+	
+	
+</mapper>

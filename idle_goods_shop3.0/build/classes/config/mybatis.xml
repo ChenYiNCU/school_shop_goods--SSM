@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+<!-- 加载映射文件 -->
+    <mappers>
+		<mapper resource="com/goods/mapper/GoodsMapper.xml"/>
+		<mapper resource="com/user/mapper/UserMapper.xml"/>
+		<mapper resource="com/type/mapper/TypeMapper.xml"/>
+		<mapper resource="com/evaluation/mapper/EvaluationMapper.xml"/>
+		<mapper resource="com/notice/mapper/NoticeMapper.xml"/>
+		<mapper resource="com/admin/mapper/AdminMapper.xml"/>
+    </mappers>	
+</configuration>

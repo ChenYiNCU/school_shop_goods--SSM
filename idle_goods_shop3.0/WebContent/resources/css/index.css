@@ -1,0 +1,310 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.swiper-container {
+	width: 100%;
+	height: 100%;
+	
+}
+
+.swiper-slide {
+	cursor:pointer;
+	text-align: center;
+	
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+a, a:hover {
+	text-decoration: none;
+	color: #333;
+}
+.top-bar table td {
+	text-align: right;
+	padding-right: 20px;
+	-border: 1px solid black;
+}
+
+.top-bar table img {
+	width: 18px;
+}
+.top-bar  a,.top-bar  a:hover {
+	text-decoration: none;
+	color: #b0b0b0;
+}
+.top-bar {
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid black;
+	font-size: 12px;
+	color: #b0b0b0;
+	background: #333;
+	cursor: pointer;
+}
+
+
+.mynav {
+	-height: 180px;
+	width: 1000px;
+	margin: 0 auto;
+	margin-top: 20px;
+	-border: 1px solid black;
+}
+
+.mynav span img {
+	width: 120px;
+	height: 50px;
+}
+
+.mynav input {
+	height: 30px;
+	width: 150px;
+	outline: none;
+	-margin: 0;
+	border: 0px;
+	border-radius: 10px;
+}
+
+.mynav span {
+	-margin-left: 20px;
+	-border: 1px solid black;
+	display: inline-block;
+}
+
+.mynav nav {
+	position: relative;
+	top: 15px;
+	display: inline-block;
+	-overflow: hidden;
+	-border: 1px solid red;
+	margin-left: 30px;
+	-margin-top: 30px;
+}
+
+.mynav .h_inpt {
+	display: inline-block;
+	margin-left: 30px;
+	margin-top: 0px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+#img_sh {
+	-width: 30px;
+	margin-left: -4px;
+}
+
+.mynav nav li {
+	list-style: none;
+	float: left;
+	width: 80px;
+	-margin-left: 10px;
+	-border: 1px solid black;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 40px;
+}
+
+.mynav nav li:hover {
+	background: #d81e06;
+	color: white;
+}
+
+#box {
+	
+	width: 80px;
+	-border: 1px solid blue;
+	position: absolute;
+	top: 40px;
+	right: 0;
+	z-index: 1;
+	display: none;
+	background: #ff1e005a;
+}
+
+.mycontent {
+	margin: 10px auto;
+	width: 1000px;
+	-height: 800px;
+	border: 1px solid gainsboro;
+}
+
+#sub1 {
+	
+	height: 430px;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+
+#sub1 img {
+	height: 430px;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	position: absolute;
+}
+
+#imgc {
+	width: 80px;
+	height: 18px;
+	position: absolute;
+	top: 370px;
+	left: 45%;
+	background: rgba(97, 93, 93, 0.568);
+	border-radius: 10px
+}
+
+#imgc li {
+	list-style: none;
+	width: 12px;
+	height: 12px;
+	border: 2px white solid;
+	border-radius: 50%;
+	float: left;
+	margin: 2px 0px 0px 12px;
+	cursor: pointer;
+}
+
+.notice {
+	margin-top: 10px;
+	font-size:14px;
+	cursor:pointer;
+}
+
+.notice span {
+	-border: 1px solid red;
+	border-radius:20px;
+	display: inline-block;
+	width: 320px;
+	padding: 10px;
+	margin: 10px;
+	height: 180px;
+	background: url("../img/notice.png") no-repeat 0px 0px;
+	background-size:300px 170px;
+	-color: white;
+	
+	
+}
+
+.notice span textarea {
+	padding:10px;
+	width: 100%;
+	height: 100%;
+	outline: none;
+	border: none;
+	background: rgba(255,255,255,0.4);
+	
+	resize: none;
+	cursor:pointer;
+}
+
+
+.goods {
+	margin-top: 20px;
+}
+
+.goods nav {
+	-border: 1px solid black;
+	text-align: center;
+	-width: 100%;
+	margin: 20px auto;
+}
+
+.ty_head {
+	height: 40px;
+}
+
+.ty table {
+	margin: 0 auto;
+	-border: 1px solid black;
+}
+
+.ty table td {
+	padding: 10px 20px;
+}
+
+.ty span {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.ty em {
+	margin-left: 20px;
+	line-height: 35px;
+}
+
+.ty a {
+	float: right;
+}
+
+.ty a img {
+	-width: 20px;
+}
+
+.ty td img {
+	width: 200px;
+	height: 200px;
+	border: 1px solid gainsboro;
+}
+.ty td img:hover{
+	border: 2px solid grey;
+}
+
+aside {
+	width: 80px;
+	-height: 300px;
+	-border: 1px solid black;
+	position: fixed;
+	right: 0;
+	top: 200px;
+	text-align: center;
+	cursor:pointer;
+}
+
+aside a,aside a:hover {
+	text-decoration: none;
+	color: #333;
+}
+
+aside li {
+	font-size: 12px;
+	list-style: none;
+	padding: 10px;
+	border: 1px solid gainsboro;
+}
+
+aside li:hover {
+	background: #e6e6e6;
+	color: #d81e06;
+	font-size: 16px;
+}
+
+#mouseflow{
+	position: absolute;
+	-top: 0;
+	width: 40px;
+	display: none;
+	z-index:1;
+}
+
+footer {
+	margin-top: 20px;
+	color: #b0b0b0;
+	background: #333;
+	font-size: 12px;
+}

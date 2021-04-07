@@ -1,0 +1,91 @@
+		.head{
+			height: 72px;
+			background-color: #F5F8FA;
+			color: #546D7E;
+			border: 0.5px #E4EAEE solid;
+		}
+		.head ul li img {
+			width: 52px;
+			height: 52px;
+			border-radius: 50%;
+		}
+		.head ul li{
+			float: left;
+			margin-left: 15px;
+			line-height: 72px;
+			font-size: 13px;
+		}
+		.head ul:after{
+		    content: '';
+		    display: block;
+		    width: 0;
+		    height: 0;
+		    clear: both;
+		}
+		.head ul li:nth-of-type(2) img{
+			width: 17px;
+			height: 17px;
+			margin-top: 30px;
+		}
+		.head ul li:nth-of-type(3){
+			font-size:14px;
+			margin-top: -12px;
+			margin-left: -15px;
+			color: #000000;
+		}
+		.head ul li:nth-of-type(4){
+			margin-left: 160px;
+		}
+		.icon{
+			width: 17px;
+			height: 17px;
+			position: relative;
+			left: 78px;
+			top: -45px;
+		}
+		.g_img{
+			width: 88px;
+			height: 88px;
+		}
+		.c_img{
+			width: 120px;
+			height: 120px;
+		}
+		.my_eva{
+			background-color: #E3E3E3;
+		}
+		.head2{
+			height: 52px;
+			border: 0.5px #E4EAEE solid;
+			margin-bottom: 23px;
+		}
+		.head2 ul li{
+			color: #4B4B4B;
+			float: left;
+			font-size: 14px;
+			padding: 0 50px;
+			line-height: 52px;
+			border-right: #ececec 0.2px solid;
+		}
+		.head2 ul li:hover{
+			color: #FF4400;
+		}
+		.head2 ul li:nth-of-type(4){
+			border-right: #ececec 0px solid;
+		}
+		.c_text{
+				color: #55B46C;
+				font-size: 16px;
+				margin-top: -19px;
+			}
+			.c_text:nth-of-type(1){
+				font-size: 90px;
+				margin-top: -40px;
+				margin-left: 10px;
+			}
+			.c_title{
+				background-color: #6EC884;
+				color: whitesmoke;
+				font-size: 16px;
+				padding:8px;
+			}

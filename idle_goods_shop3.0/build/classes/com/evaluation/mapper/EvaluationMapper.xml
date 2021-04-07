@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper  namespace="com.evaluation.mapper.EvaluationMapper">
+	<resultMap type="com.evaluation.entity.Evaluation" id="evaluationResult">
+		<result column="e_id" property="e_id"/>
+		<result column="e_content" property="e_content"/>
+		<result column="e_score" property="e_score"/>
+		
+		<association property="seller" javaType="com.evaluation.entity.User">
+			<result column="u_id" property="u_id"/>
+			<result column="u_name" property="u_name"/>
+			<result column="u_pwd" property="u_pwd"/>
+			<result column="u_sid" property="u_sid"/>
+			<result column="u_class" property="u_class"/>
+			<result column="u_margin" property="u_margin"/>
+			<result column="u_flag" property="u_flag"/>
+		</association>
+		
+		<association property="buyer" javaType="com.evaluation.entity.User">
+			<result column="u_id" property="u_id"/>
+			<result column="u_name" property="u_name"/>
+			<result column="u_pwd" property="u_pwd"/>
+			<result column="u_sid" property="u_sid"/>
+			<result column="u_class" property="u_class"/>
+			<result column="u_margin" property="u_margin"/>
+			<result column="u_flag" property="u_flag"/>
+		</association>
+
+		<association property="goods" javaType="com.goods.entity.Goods">
+		<result column="g_id" property="g_id"/>
+		<result column="g_name" property="g_name"/>
+		<result column="g_detail" property="g_detail"/>
+		<result column="g_price" property="g_price"/>
+		<result column="flag" property="flag"/>
+		<result column="url" property="url"/>
+		
+		<association property="seller" javaType="com.goods.entity.User">
+			<result column="u_id" property="u_id"/>
+			<result column="u_name" property="u_name"/>
+			<result column="u_pwd" property="u_pwd"/>
+			<result column="u_sid" property="u_sid"/>
+			<result column="u_class" property="u_class"/>
+			<result column="u_margin" property="u_margin"/>
+			<result column="u_flag" property="u_flag"/>
+		</association>
+		
+		<association property="buyer" javaType="com.goods.entity.User">
+			<result column="u_id" property="u_id"/>
+			<result column="u_name" property="u_name"/>
+			<result column="u_pwd" property="u_pwd"/>
+			<result column="u_sid" property="u_sid"/>
+			<result column="u_class" property="u_class"/>
+			<result column="u_margin" property="u_margin"/>
+			<result column="u_flag" property="u_flag"/>
+		</association>
+		
+		<association property="type" javaType="com.goods.entity.Type">
+			<result column="t_id" property="t_id"/>
+			<result column="t_name" property="t_name"/>
+		</association>
+		
+	</association>
+	</resultMap>
+	
+	<!-- 通过卖家id查找 -->
+	<select id="findEvaBySeId" resultMap="evaluationResult">
+		<![CDATA[
+			select d.* from
+			 (select e.*,rownum r,u.u_name,g.g_name,g.url
+			  from evaluation e,user2 u,goods g
+			  where e.se_id=#{u_id} and e.bu_id=u.u_id and e.g_id=g.g_id) d
+			 where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+		]]>
+	</select>
+	
+	<!-- 通过买家id查找 -->
+	<select id="findEvaByBuId" resultMap="evaluationResult">
+		<![CDATA[
+			select d.* from
+			 (select e.*,rownum r,u.u_name,g.g_name,g.url
+			  from evaluation e,user2 u,goods g
+			  where e.bu_id=#{u_id} and e.se_id=u.u_id and e.g_id=g.g_id) d
+			 where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+		]]>
+	</select>
+	
+	<!-- 更具u_id查询总记录数 -->
+	<select id="count" resultType="int">
+		select count(*) from evaluation where se_id=#{u_id}
+	</select>
+	<select id="count1" resultType="int">
+		select count(*) from evaluation where bu_id=#{u_id}
+	</select>
+	
+	
+	<insert id="addEva" parameterType="com.evaluation.entity.Evaluation">
+		insert into evaluation values(evaluation_id_seq.nextval,#{goods.g_id},#{seller.u_id},#{buyer.u_id},#{e_content},#{e_score})
+	</insert>
+	
+	<!-- 通过gid找 -->
+	<select id="findEvaByGid" resultMap="evaluationResult">
+		select e.*,u.u_name,g.g_name,g.url from evaluation e,user2 u,goods g where e.g_id=#{goods.g_id} and g.g_id=e.g_id and u.u_id=e.se_id
+	</select>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper  namespace="com.user.mapper.UserMapper">
+
+	
+	<!-- 修改 -->
+	<update id="updateUser" parameterType="com.user.entity.User">
+		update user2 set u_name=#{u_name},u_pwd=#{u_pwd},u_sid=#{u_sid},u_class=#{u_class},u_margin=#{u_margin},u_flag=#{u_flag} where u_id=#{u_id}
+	</update>
+	
+	<!-- 根据id查询 -->
+	  <select id="findByuId" resultType="com.user.entity.User">
+	  	select * from user2 where u_id=#{u_id}
+	  </select>
+	  
+	  <!-- 用户注册 -->
+	<insert id="registUser" parameterType="com.user.entity.User">
+		insert into user2(u_id,u_name,u_pwd,u_sid,u_class,u_margin,u_flag)
+		values (user2_id_seq1.nextval,#{u_name},#{u_pwd},#{u_sid},#{u_class},#{u_margin},#{u_flag})
+	</insert>
+	
+	<!-- 用户登陆 -->
+	<select id="login" resultType="com.user.entity.User">
+		select * from user2 where u_sid=#{u_sid} and u_pwd=#{u_pwd}
+	</select>
+	
+	<!-- 按s_id学号查找用户，验证用户账号 -->
+	<select id="findById" resultType="com.user.entity.User">
+		select * from user2 where u_sid=#{u_sid}
+	</select>
+	
+	<!-- 查询所有用户 -->
+	<select id="findAllUsers" resultType="com.user.entity.User">
+		<![CDATA[
+			select * from
+            (select d.*,rownum r from
+            (select * from user2 order by u_id ) d ) 
+            where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+			
+		]]>
+	</select>
+	<!-- 查询用户记录数 -->
+	<select id="countUsers" resultType="int">
+		select count(1) from user2
+	</select>
+	<!-- 用户通过管理员审核 -->
+	<update id="examine" parameterType="int">
+		update user2 set u_flag=1
+		where u_id=#{u_id}	
+	</update>
+	<!-- 解封用户账号  -->
+	<update id="reopen">
+		update user2 set u_flag=1
+		where u_id=#{u_id}	
+	</update>
+	<!-- 封禁账号 -->
+	<update id="freeze">
+		update user2 set u_flag=2
+		where u_id=#{u_id}	
+	</update>
+	
+	<!-- 根据用户编号u_id查找用户 -->
+	<select id="findUserById" resultType="com.user.entity.User">
+		select * from user2 where u_id=#{u_id}
+	</select>
+	
+	<!-- 修改用户信息 -->
+	<update id="update" parameterType="com.user.entity.User">
+		update user2 set
+		u_name=#{u_name},u_pwd=#{u_pwd},u_sid=#{u_sid},u_class=#{u_class},u_margin=#{u_margin}
+		where u_id=#{u_id}
+	</update>
+	
+	<!-- 修改用户密码 -->
+	<update id="updatePwd" parameterType="com.user.entity.User">
+		update user2 set
+		u_pwd=#{u_pwd}
+		where u_sid=#{u_sid}
+	</update>
+	
+	<!-- 删除用户 -->	
+	<delete id="del" parameterType="int">
+		delete from user2 where u_id=#{u_id}
+	</delete>
+<!-- 按学号模糊查询用户 -->
+	<sql id="findLike1">
+		select u1.* from
+            (select u.*,rownum r from user2 u 
+	</sql>
+	<sql id="findLike2">
+		)u1
+		<![CDATA[
+       		where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+        ]]>
+	</sql>
+	<select id="findLike" resultType="com.user.entity.User">
+		<include refid="findLike1"/>
+            <where>
+	            <if test="find!=null and find!=''">
+	            	and u.u_sid like '%'||#{find}||'%'
+	            </if> 
+            </where>
+          <include refid="findLike2"/>  
+	</select>
+	
+	<!-- 按学号查询用户记录数 -->
+	<select id="countUsersBySid" resultType="int">
+		select count(1) from user2 
+		<where>
+            <if test="_parameter!=null and _parameter!=''">
+            	and u_sid like '%'||#{_parameter}||'%'
+            </if> 
+        </where>
+	</select>
+	
+	<!-- 按账号状态模糊查询用户 -->
+	<sql id="findLike3">
+		select u1.* from
+            (select u.*,rownum r from user2 u 
+	</sql>
+	<sql id="findLike4">
+		)u1
+		<![CDATA[
+       		where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+        ]]>
+	</sql>
+	<select id="findFlag" resultType="com.user.entity.User">
+		<include refid="findLike3"/>
+            <where>
+	            <if test="u_flag!=null and u_flag!=-1">
+	            	and u.u_flag=#{u_flag}
+	            </if> 
+            </where>
+          <include refid="findLike4"/>  
+	</select>
+	<!-- 按账号状态查询用户记录数 -->
+	<select id="countUsersByFlag" resultType="int" parameterType="int">
+		select count(1) from user2 
+		<where>
+            <if test="_parameter!=null and _parameter!=-1">
+            	and u_flag=#{_parameter}
+            </if> 
+        </where>
+	</select>	
+</mapper>

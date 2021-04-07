@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.admin.mapper.AdminMapper">
+	<resultMap type="com.admin.entity.Goods" id="goodsResult">
+		<result column="g_id" property="g_id" />
+		<result column="g_name" property="g_name" />
+		<result column="g_detail" property="g_detail" />
+		<result column="g_price" property="g_price" />
+		<result column="url" property="url" />
+		<result column="flag" property="flag" />
+
+		<association property="seller" javaType="com.admin.entity.User">
+			<result column="u_id" property="u_id" />
+			<result column="u_name" property="u_name" />
+			<result column="u_pwd" property="u_pwd" />
+			<result column="u_sid" property="u_sid" />
+			<result column="u_class" property="u_class" />
+			<result column="u_margin" property="u_margin" />
+			<result column="u_flag" property="u_flag" />
+		</association>
+
+		<association property="buyer" javaType="com.admin.entity.User">
+			<result column="u_id" property="u_id" />
+			<result column="u_name" property="u_name" />
+			<result column="u_pwd" property="u_pwd" />
+			<result column="u_sid" property="u_sid" />
+			<result column="u_class" property="u_class" />
+			<result column="u_margin" property="u_margin" />
+			<result column="u_flag" property="u_flag" />
+		</association>
+
+		<association property="type" javaType="com.admin.entity.Type">
+			<result column="t_id" property="t_id" />
+			<result column="t_name" property="t_name" />
+		</association>
+
+	</resultMap>
+
+
+
+	<!-- 管理员登陆 -->
+	<select id="login" resultType="com.admin.entity.Admin">
+		select * from admin where
+		a_name=#{a_name} and a_pwd=#{a_pwd}
+	</select>
+	<!-- 按账号查找管理员 -->
+	<select id="findByName" resultType="com.admin.entity.Admin">
+		select * from admin where
+		a_name=#{a_name}
+	</select>
+
+
+
+	<select id="checkGoods" resultMap="goodsResult">
+	<![CDATA[
+	select * from
+	(select g.*,rownum r from
+		(select * from goods,user2 where goods.se_id=user2.u_id and flag=0) g)
+		where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+	]]>
+	</select>
+
+
+	<select id="goodsCount" resultType="int">
+		select count(1) from goods where
+		flag=0
+	</select>
+
+	<update id="pass">
+		update goods set flag=1 where g_id=#{g_id}
+	</update>
+	
+	<select id="findAllType" resultType="com.admin.entity.Type">
+	<![CDATA[
+	select * from 
+	(select t.*,rownum r from type t) g where 
+	r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+	]]>
+	</select>
+	<select id="typeCount" resultType="int">
+		select count(1) from type
+	</select>
+	<select id="checkType" resultType="com.admin.entity.Type">
+	select * from type where t_name=#{t_name}
+	</select>
+	<update id="changTypeName">
+		update type set t_name=#{t_name} where t_id=#{t_id}
+	</update>
+	<insert id="addType">
+	insert into type values(type_id_seq1.nextval, #{t_name})
+	</insert>
+
+
+
+
+
+
+</mapper>

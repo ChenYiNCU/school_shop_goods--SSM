@@ -1,0 +1,143 @@
+@CHARSET "UTF-8";
+{
+	margin: 0;
+	padding: 0;
+}
+/* html,body{
+	height:100%;
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+header{
+	flex: 0 0 auto;
+}
+footer {
+	margin-top: 20px;
+	color: #b0b0b0;
+	background: #333;
+	font-size: 12px;
+	flex: 0 0 auto;
+}
+
+.top-bar table td {
+	text-align: right;
+	padding-right: 20px;
+	-border: 1px solid black;
+}
+
+.top-bar table img {
+	width: 18px;
+} */
+
+.top-bar {
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid black;
+	font-size: 12px;
+	color: #b0b0b0;
+	background: #333;
+}
+.main{
+    width: 75%;
+    height: auto;
+    margin: 0 auto;
+    /* border: 1px solid black; */
+    overflow: hidden;
+    flex: 1 0 auto;
+}
+
+.main-top{
+    width:100%;
+    overflow: hidden;
+}
+.add{
+    float: left;
+    margin-left: 5px;
+}
+.search{
+    /* border: 1px solid black; */
+    width: auto;
+    float: right;    
+}
+
+.search select{
+    width: 80px;
+    height: 34px;
+}
+
+.search-find{
+	border: 1px solid #DEE5ED;
+	padding: 6px 15px;
+	font-size: 16px;
+	color: #5E6271;
+	border-radius: 6px;
+	font-weight: 300;	
+}
+.search-find:focus {
+	outline: none;
+    border: 1px solid #4f9da6;
+    background: #fff;	
+}
+
+.page{
+   /*  margin-top: 10px; */
+    width: 100%;
+}
+.page-pos{
+	width:300px;
+	margin:0 auto;
+}
+
+
+
+.title{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+.title-id{
+    text-align: center;
+}
+.limit{
+	max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.not-found{
+	text-align:center;
+	font-size:26px;
+	font-weight:bold;
+}
+div.table-responsive{
+	margin-top:20px;
+}
+.table img{
+	width:100px;
+	height:100px;
+}
+.table thead tr{
+	height:40px;
+}
+.table thead th{
+	text-align:center;
+	vertical-align: middle;
+}
+
+.table tbody tr{
+	border:1px solid silver;
+}
+.table tbody tr:hover{
+	box-shadow:#888888 0px 0px 10px ;
+}
+.table tbody tr td{
+	vertical-align: middle;
+}
+.table thead{
+	border:1px solid silver;
+	background-color:rgb(221, 218, 218);
+}
+

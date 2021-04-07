@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper  namespace="com.notice.mapper.NoticeMapper">
+	<!-- 分页查询 -->
+	<select id="findNoPage" resultType="com.notice.entity.Notice">
+		<![CDATA[
+			select d.* from
+			(select n.*,rownum r from notice n) d 
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+		]]>
+	</select>
+	
+	<!-- 查询总记录数 -->
+	<select id="countPage" resultType="int">
+		select count(*) from notice
+	</select>
+	
+	<sql id="find1">
+		select d.* from
+			(select n.*,rownum r from notice n 
+	</sql>
+	
+	<sql id="find2">
+		) d
+			<![CDATA[
+			where r>(#{index}-1)*#{size} and r<=#{index}*#{size}
+			]]>
+	</sql>
+	
+	<!-- 模糊查询 -->
+	<select id="findBycontent" resultType="com.notice.entity.Notice">
+		<include refid="find1"/>
+			<where>
+				<if test="n_content!=null and n_content!=''">
+					and n_content like '%'||#{n_content}||'%'
+				</if>
+			</where>
+		<include refid="find2"/>
+	</select>
+	
+	<!-- 更具uname查询总记录数 -->
+	<select id="count" resultType="int">
+		select count(1) from notice
+		<where>
+			<if test="n_content!=null and n_content!=''">
+				and n_content like '%'||#{n_content}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delNotice" parameterType="int">
+		delete from notice where n_id=#{n_id}
+	</delete>
+	
+	<!-- 添加 -->
+	<insert id="addNotice" parameterType="com.notice.entity.Notice">
+		insert into notice values(notice_id_seq1.nextval,#{n_content},sysdate)
+	</insert>
+	
+	 <!-- 修改 -->
+	 <update id="updateNotice" parameterType="com.notice.entity.Notice">
+	  	update notice set n_content=#{n_content},time=sysdate where n_id=#{n_id}
+	 </update>
+	 
+	  <!-- 根据id查询 -->
+	  <select id="findByNoId" resultType="com.notice.entity.Notice">
+	  	select * from notice where n_id=#{n_id}
+	  </select>
+</mapper>

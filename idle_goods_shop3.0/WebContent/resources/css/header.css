@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+}
+html,body{
+	height:100%;
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+header{
+	flex: 0 0 auto;
+}
+footer {
+	/* margin-top: 20px; */
+	color: #b0b0b0;
+	background: #333;
+	font-size: 12px;
+	flex: 0 0 auto;
+}
+.top-bar  a,.top-bar  a:hover {
+	text-decoration: none;
+	color: #b0b0b0;
+}
+.top-bar table td {
+	text-align: right;
+	padding-right: 20px;
+	-border: 1px solid black;
+}
+
+.top-bar table img {
+	width: 18px;
+}
+
+.top-bar {
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid black;
+	font-size: 12px;
+	color: #b0b0b0;
+	background: #333;
+	cursor: pointer;
+}

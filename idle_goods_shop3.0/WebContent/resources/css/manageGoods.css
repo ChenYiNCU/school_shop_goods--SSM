@@ -1,0 +1,45 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.manage{
+	width: 1050px;
+	margin: 10px auto;
+}
+.manage p{
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+.manage p>span{
+	padding: 20px;
+	color: red;
+	font-size: 22px;
+}
+.magoods,.mytype{
+	margin-top: 30px;
+}
+
+.manage nav{
+	text-align: center;
+}
+
+.magoods img{
+	width: 100px;
+}
+.manage table th,.manage table td{
+	text-align: center;
+	-line-height: 100px;
+	
+}
+.manage button{
+	width: 100px;
+	height: 40px;
+	border-style: none;
+	outline: none;
+	font-size: 16px;
+	background: #1296db;
+	color: white;
+	margin-left:10px ;
+}
+
